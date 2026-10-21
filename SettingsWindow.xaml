@@ -1,0 +1,133 @@
+<Window x:Class="FastShare.SettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Settings" Width="980" SizeToContent="Height"
+        MinWidth="760"
+        WindowStartupLocation="CenterOwner"
+        Background="{DynamicResource Chrome}"
+        Foreground="{DynamicResource Text}"
+        FontFamily="Segoe UI">
+
+    <DockPanel Margin="20">
+
+        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal"
+                    HorizontalAlignment="Right" Margin="0,16,0,0">
+            <Button Content="Save" MinWidth="92" Style="{StaticResource Primary}" Click="OnSaveClick"/>
+            <Button Content="Cancel" MinWidth="92" Margin="0" Click="OnCancelClick"/>
+        </StackPanel>
+
+        <!-- The window grows to fit everything (SizeToContent). It scrolls only on a display
+             too short to hold it all. -->
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled"
+                      Padding="0,0,6,0">
+        <!-- Two columns, so everything fits on screen without scrolling. -->
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="32"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.Column="0">
+            <TextBlock Text="Your name" FontWeight="SemiBold" Margin="0,0,0,6"/>
+            <TextBox x:Name="UsernameBox"/>
+            <TextBlock Margin="0,6,0,0" TextWrapping="Wrap" FontSize="11"
+                       Foreground="{DynamicResource Subtle}"
+                       Text="Shown to people when you ask to connect to them. Defaults to this PC's desktop name."/>
+
+            <TextBlock Text="Sharing port" FontWeight="SemiBold" Margin="0,20,0,6"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="90"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBox x:Name="PortBox" Grid.Column="0"/>
+
+                <!-- Applies just the port, now, and re-checks it. Same number = check again. -->
+                <Button x:Name="SavePortButton" Grid.Column="1" Content="Save port" MinWidth="80"
+                        Margin="8,0,0,0" Click="OnSavePortClick"
+                        ToolTip="Switches sharing to this port now and checks whether it is open. Your code changes with the port."/>
+
+                <TextBlock x:Name="PortStatus" Grid.Column="2" VerticalAlignment="Center"
+                           Margin="12,0,0,0" FontWeight="SemiBold" Text="Checking…"
+                           ToolTip="Whether this port can be reached from the internet. Tested by connecting to your own public address."/>
+
+                <!-- Right after the status, not pushed to the far edge. -->
+                <TextBlock Grid.Column="3" VerticalAlignment="Center" Margin="10,0,0,0"
+                           FontSize="11" TextWrapping="Wrap"
+                           Foreground="{DynamicResource Subtle}"
+                           Text="· must be open to host"/>
+            </Grid>
+            <TextBlock x:Name="PortNote" Margin="0,6,0,0" TextWrapping="Wrap" FontSize="11"
+                       Foreground="{DynamicResource Subtle}"
+                       Text="Your code includes the port, so a new port means a new code."/>
+
+            <TextBlock x:Name="VersionText" FontWeight="SemiBold" Margin="0,20,0,6" Text="Version:"/>
+            <Button x:Name="UpdateButton" Content="Check for updates" MinWidth="130"
+                    HorizontalAlignment="Left" Margin="0" Click="OnUpdateClick"
+                    ToolTip="Gets the latest build from the maintainer's PC, or from the website when that is not available, and replaces this one."/>
+            <TextBlock x:Name="UpdateStatus" Margin="0,8,0,0" TextWrapping="Wrap" FontSize="11"
+                       Foreground="{DynamicResource Subtle}" Visibility="Collapsed"/>
+            <ProgressBar x:Name="UpdateProgress" Height="6" Margin="0,6,0,0"
+                         Visibility="Collapsed" BorderThickness="0"
+                         Foreground="{DynamicResource Accent}" Background="{DynamicResource Line}"/>
+
+            <TextBlock Text="Performance" FontWeight="SemiBold" Margin="0,20,0,6"/>
+            <CheckBox x:Name="AutoExcludeBox"
+                      Content="Keep shared and download folders excluded from Windows Defender"
+                      Foreground="{DynamicResource Text}"/>
+            <TextBlock Margin="0,6,0,0" TextWrapping="Wrap" FontSize="11"
+                       Foreground="{DynamicResource Subtle}"
+                       Text="Shares are excluded at startup and when added (and un-excluded when removed); a download folder is excluded when you pick it. Windows asks you to confirm each change. Files landing in an excluded folder are not scanned as they arrive."/>
+
+            <TextBlock Text="Transfers" FontWeight="SemiBold" Margin="0,20,0,6"/>
+            <CheckBox x:Name="VerifyBox" Content="Check files after every transfer"
+                      Foreground="{DynamicResource Text}"/>
+            <TextBlock Margin="24,2,0,0" TextWrapping="Wrap" FontSize="11" Foreground="{DynamicResource Subtle}"
+                       Text="Both PCs compare a fingerprint (SHA-256) of every file that moved and name any that differ. On by default. Reads everything again on both ends, so a big transfer takes a minute or more longer; turn it off for speed. Both need FastShare 2.4.17 or newer."/>
+
+            <CheckBox x:Name="ShutdownBox" Content="Shut down this PC when all transfers finish"
+                      Margin="0,12,0,0" Foreground="{DynamicResource Text}"/>
+            <TextBlock x:Name="ShutdownNote" Margin="24,2,0,0" TextWrapping="Wrap" FontSize="11" Foreground="{DynamicResource Subtle}"
+                       Text="For the transfers running now, yours and other people's (and anything queued). When they are done it unticks itself and shuts the PC down - no countdown, so you can walk away. Also on the bottom bar's right-click menu."/>
+        </StackPanel>
+
+        <StackPanel Grid.Column="2">
+            <TextBlock Text="Speed shown in" FontWeight="SemiBold" Margin="0,0,0,6"/>
+            <ComboBox x:Name="SpeedUnitBox" Width="160" HorizontalAlignment="Left">
+                <ComboBoxItem Content="Megabits" Tag="Mbit"/>
+                <ComboBoxItem Content="Megabytes" Tag="MB"/>
+            </ComboBox>
+            <TextBlock Margin="0,4,0,0" TextWrapping="Wrap" FontSize="11" Foreground="{DynamicResource Subtle}"
+                       Text="1 Gig internet = 1000 Megabits (internet speed) / 125 Megabytes (storage)."/>
+
+            <TextBlock Text="Window" FontWeight="SemiBold" Margin="0,20,0,6"/>
+            <CheckBox x:Name="TrayBox" Content="Closing the window keeps FastShare running in the notification area"
+                      Foreground="{DynamicResource Text}"/>
+            <TextBlock Margin="24,2,0,0" TextWrapping="Wrap" FontSize="11" Foreground="{DynamicResource Subtle}"
+                       Text="It keeps sharing and pops up when someone connects or sends files. Quit from the tray icon's menu. With this off, the icon only appears for a moment when there is a notification to show."/>
+
+            <TextBlock Text="Troubleshooting" FontWeight="SemiBold" Margin="0,20,0,6"/>
+            <CheckBox x:Name="DevBox" Content="Dev mode — exchange diagnostic logs with connected PCs"
+                      Foreground="{DynamicResource Text}"/>
+            <TextBlock Margin="24,2,0,0" TextWrapping="Wrap" FontSize="11" Foreground="{DynamicResource Subtle}"
+                       Text="Sends this PC's log and live transfer stats to the PC you are connected to, and keeps what they send. Both of you need it on. The log includes folder paths and addresses."/>
+            <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                <Button x:Name="SpeedTestButton" Content="Run speed test" MinWidth="130" Margin="0"
+                        Click="OnSpeedTestClick"
+                        ToolTip="Measures the line to every connected PC with no disks involved: download over 4 to 16 streams (to find the best number for this line) and over 1, upload over 8, and ping idle vs busy."/>
+                <Button x:Name="OpenLogButton" Content="Open log" MinWidth="90" Margin="8,0,0,0"
+                        Click="OnOpenLogClick"
+                        ToolTip="Opens the diagnostic log, for working out why something failed."/>
+            </StackPanel>
+            <TextBlock x:Name="SpeedTestStatus" Margin="0,6,0,0" TextWrapping="Wrap" FontSize="11"
+                       Foreground="{DynamicResource Subtle}"
+                       Text="Shows how fast the connection itself is, so a slow transfer can be put down to the line or to one of the PCs. Takes about 75 seconds; results go to the status bar and the log."/>
+        </StackPanel>
+        </Grid>
+        </ScrollViewer>
+    </DockPanel>
+</Window>

@@ -1,0 +1,46 @@
+# Code\ is this app's git repository and the ONLY folder that goes on GitHub ("push to github.bat").
+# Build\, Website\ and Resources\ are beside it, so they are never in it.
+
+# Never public: keys, passwords, shared secrets. The real values live in *.local.* files (or .env) that the build
+# uses when they are there; the repository has a blank *.example.* next to each.
+# (Fast Share has none: its certificate, its password and every peer's token are made on each PC at first run and
+# live in %APPDATA%\FastShare, never in the source.)
+*.local.*
+.env
+.env.*
+!.env.example
+*.pfx
+
+# Not ours to publish: third-party / Microsoft binaries and tools the build copies in (each app lists its own
+# below; README.md says where to get them), and the owner's own data, saves and test files.
+# Fast Share's native WPF DLLs (D3DCompiler_47_cor3.dll ...) come from the .NET SDK at publish time, NuGet
+# packages (SharpCompress) are restored by dotnet - neither is ever in this folder, but just in case:
+*.dll
+*.exe
+*.rar
+*.zip
+# FastShare's own settings and logs, if a copy is ever run from here (normally %APPDATA%\FastShare).
+config.json
+config.json.bak
+log.txt
+fastshare-debug.log
+*.fsold
+*.fspart
+*.fspart.json
+
+# Build output and caches
+build/
+dist/
+bin/
+obj/
+release/
+updater-tool/
+.venv/
+__pycache__/
+*.pyc
+*.log
+*.user
+*.suo
+.vs/
+.vscode/
+.idea/

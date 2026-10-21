@@ -1,0 +1,293 @@
+﻿<Application x:Class="FastShare.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+
+        <!-- Light defaults so the designer has something to draw. Theme.Apply overwrites
+             every one of these at startup, and all usages below are DynamicResource, so
+             switching theme takes effect live with no reload. -->
+        <SolidColorBrush x:Key="Chrome"       Color="#F3F3F3"/>
+        <SolidColorBrush x:Key="Content"      Color="#FFFFFF"/>
+        <SolidColorBrush x:Key="Line"         Color="#E0E0E0"/>
+        <SolidColorBrush x:Key="Text"         Color="#1A1A1A"/>
+        <SolidColorBrush x:Key="Subtle"       Color="#5A5A5A"/>
+        <SolidColorBrush x:Key="Accent"       Color="#0078D4"/>
+        <SolidColorBrush x:Key="OnAccent"     Color="#FFFFFF"/>
+        <SolidColorBrush x:Key="Good"         Color="#107C10"/>
+        <SolidColorBrush x:Key="Bad"          Color="#C42B1C"/>
+        <SolidColorBrush x:Key="Idle"         Color="#9A9A9A"/>
+        <SolidColorBrush x:Key="ButtonBg"     Color="#FDFDFD"/>
+        <SolidColorBrush x:Key="ButtonBorder" Color="#CCCCCC"/>
+        <SolidColorBrush x:Key="ButtonHover"  Color="#EAEAEA"/>
+        <SolidColorBrush x:Key="InputBg"      Color="#FFFFFF"/>
+        <SolidColorBrush x:Key="HeaderBg"     Color="#F3F3F3"/>
+        <SolidColorBrush x:Key="RowHover"     Color="#F0F0F0"/>
+        <SolidColorBrush x:Key="RowSelected"  Color="#CCE4F7"/>
+        <SolidColorBrush x:Key="ItemSelected" Color="#CCE4F7"/>
+        <SolidColorBrush x:Key="ItemSelectedBorder" Color="#99C9EF"/>
+        <SolidColorBrush x:Key="FolderGlyph"  Color="#DCA612"/>
+        <SolidColorBrush x:Key="PersonGlyph"  Color="#0A63B8"/>
+        <SolidColorBrush x:Key="FileGlyph"    Color="#6E6E6E"/>
+        <SolidColorBrush x:Key="DangerBg"     Color="#FDF3F2"/>
+        <SolidColorBrush x:Key="DangerBorder" Color="#E8B4AE"/>
+
+        <Style TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="12"/>
+        </Style>
+
+        <Style TargetType="TextBox">
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Padding" Value="6,4"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Background" Value="{DynamicResource InputBg}"/>
+            <Setter Property="Foreground" Value="{DynamicResource Text}"/>
+            <Setter Property="CaretBrush" Value="{DynamicResource Text}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource Line}"/>
+        </Style>
+
+        <Style TargetType="Button">
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Padding" Value="12,5"/>
+            <Setter Property="Margin" Value="0,0,6,0"/>
+            <Setter Property="MinWidth" Value="72"/>
+            <Setter Property="Background" Value="{DynamicResource ButtonBg}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource ButtonBorder}"/>
+            <Setter Property="Foreground" Value="{DynamicResource Text}"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Chrome" Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="1" CornerRadius="4">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"
+                                              Margin="{TemplateBinding Padding}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Chrome" Property="Opacity" Value="0.85"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="Chrome" Property="Opacity" Value="0.70"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Opacity" Value="0.45"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="Primary" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+            <Setter Property="Background" Value="{DynamicResource Accent}"/>
+            <Setter Property="Foreground" Value="{DynamicResource OnAccent}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource Accent}"/>
+        </Style>
+
+        <!-- The counterpart to Primary: same accent, but worn as an outline rather than a
+             fill, so two important actions can sit side by side without competing. -->
+        <Style x:Key="Outline" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+            <Setter Property="Background" Value="{DynamicResource InputBg}"/>
+            <Setter Property="Foreground" Value="{DynamicResource Accent}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource Accent}"/>
+        </Style>
+
+        <Style x:Key="Danger" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+            <Setter Property="Background" Value="{DynamicResource DangerBg}"/>
+            <Setter Property="Foreground" Value="{DynamicResource Bad}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource DangerBorder}"/>
+        </Style>
+
+        <Style x:Key="Ghost" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="MinWidth" Value="32"/>
+            <Setter Property="Padding" Value="7,4"/>
+        </Style>
+
+        <!-- The little drag handle on the right edge of every column header. The custom header
+             template below replaces the default one, which is where the built-in gripper lived -
+             without putting it back, columns could not be resized at all. Named PART_HeaderGripper
+             so GridViewColumnHeader wires the drag-to-resize to it automatically. -->
+        <Style x:Key="ColumnHeaderGripper" TargetType="Thumb">
+            <Setter Property="Width" Value="10"/>
+            <Setter Property="Margin" Value="0,0,-5,0"/>
+            <Setter Property="Cursor" Value="SizeWE"/>
+            <Setter Property="Background" Value="{DynamicResource Line}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Thumb">
+                        <!-- Transparent hit area the full header height, with a thin visible rule
+                             down the middle so the boundary is discoverable. -->
+                        <Border Background="Transparent">
+                            <Rectangle Width="1" HorizontalAlignment="Center"
+                                       Fill="{TemplateBinding Background}"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Column headers double as sort buttons, so they get a hover affordance. -->
+        <Style TargetType="GridViewColumnHeader">
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="FontWeight" Value="Normal"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="Padding" Value="8,5"/>
+            <Setter Property="Foreground" Value="{DynamicResource Subtle}"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="GridViewColumnHeader">
+                        <Grid>
+                            <Border x:Name="Bd" Background="{DynamicResource HeaderBg}"
+                                    BorderBrush="{DynamicResource Line}" BorderThickness="0,0,1,1">
+                                <ContentPresenter Margin="{TemplateBinding Padding}"
+                                                  HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                            </Border>
+                            <Thumb x:Name="PART_HeaderGripper" HorizontalAlignment="Right"
+                                   Style="{StaticResource ColumnHeaderGripper}"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="{DynamicResource ButtonHover}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="ListViewItem">
+            <Setter Property="Foreground" Value="{DynamicResource Text}"/>
+
+            <!-- Through the template rather than baked into it, so a list that scales its
+                 rows (the Browse tab, under Ctrl+scroll) can actually raise the height. -->
+            <Setter Property="MinHeight" Value="24"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListViewItem">
+                        <Border x:Name="Bd" Background="Transparent"
+                                MinHeight="{TemplateBinding MinHeight}"
+                                SnapsToDevicePixels="True">
+                            <GridViewRowPresenter VerticalAlignment="Center"
+                                                  Content="{TemplateBinding Content}"
+                                                  Columns="{TemplateBinding GridView.ColumnCollection}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="{DynamicResource RowHover}"/>
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="{DynamicResource RowSelected}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="ListBox">
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Background" Value="{DynamicResource Content}"/>
+            <Setter Property="Foreground" Value="{DynamicResource Text}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource Line}"/>
+        </Style>
+
+        <Style TargetType="ListBoxItem">
+            <Setter Property="Foreground" Value="{DynamicResource Text}"/>
+            <Setter Property="Padding" Value="6,4"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <Border x:Name="Bd" Background="Transparent" CornerRadius="3"
+                                Padding="{TemplateBinding Padding}" SnapsToDevicePixels="True">
+                            <ContentPresenter/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="{DynamicResource RowHover}"/>
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="{DynamicResource RowSelected}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="TreeViewItem">
+            <Setter Property="Foreground" Value="{DynamicResource Text}"/>
+        </Style>
+
+        <!-- A real toggle switch rather than a tick box: these grant capabilities to another
+             person, and the on/off state should read at a glance. -->
+        <Style x:Key="Switch" TargetType="CheckBox">
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Foreground" Value="{DynamicResource Text}"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Margin" Value="0,0,0,10"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="CheckBox">
+                        <StackPanel Orientation="Horizontal">
+                            <Border x:Name="Track" Width="40" Height="22" CornerRadius="11"
+                                    Background="{DynamicResource ButtonBorder}"
+                                    VerticalAlignment="Center">
+                                <Ellipse x:Name="Knob" Width="16" Height="16" Fill="White"
+                                         HorizontalAlignment="Left" Margin="3,0,0,0"/>
+                            </Border>
+                            <ContentPresenter Margin="12,0,0,0" VerticalAlignment="Center"/>
+                        </StackPanel>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="Track" Property="Background" Value="{DynamicResource Accent}"/>
+                                <Setter TargetName="Knob" Property="HorizontalAlignment" Value="Right"/>
+                                <Setter TargetName="Knob" Property="Margin" Value="0,0,3,0"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Track" Property="Opacity" Value="0.85"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Flat tabs; the WPF default looks like Windows XP. -->
+        <Style TargetType="TabItem">
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Foreground" Value="{DynamicResource Subtle}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TabItem">
+                        <Border x:Name="Tab" Background="Transparent" Padding="16,9"
+                                BorderBrush="Transparent" BorderThickness="0,0,0,2">
+                            <ContentPresenter ContentSource="Header"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="Tab" Property="BorderBrush" Value="{DynamicResource Accent}"/>
+                                <Setter Property="Foreground" Value="{DynamicResource Accent}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Tab" Property="Background" Value="{DynamicResource ButtonHover}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </Application.Resources>
+</Application>
