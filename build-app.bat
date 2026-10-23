@@ -16,7 +16,7 @@ rem  FASTSHARE_UPDATE_WEBSITE (optional environment variable): this build checks
 rem  for updates instead of UpdateWebsite in FastShare.csproj, e.g.
 rem      set FASTSHARE_UPDATE_WEBSITE=http://1.2.3.4:8080/
 rem  Needs: .NET 10 SDK. FastShare must not be running from Build\ (a running exe can't be replaced).
-rem  Nothing is made for the website here (that's Website\build.bat and package-app.bat).
+rem  Nothing is made for the website here (that's Website\1 build.bat and package-app.bat).
 rem ==========================================================================
 setlocal
 set "VERSION=%~1"

@@ -1,4 +1,4 @@
-; Inno Setup script for FastShare. Built by package-app.bat (Website\"archive this build.bat"):
+; Inno Setup script for FastShare. Built by package-app.bat (Website\"2 archive this build.bat"):
 ;   ISCC /DAppVersion=x.y.z /DSourceDir=<Website\FastShare> /DOutDir=<Website> installer.iss
 ; Shown as "Fast Share" (Start menu, Windows search, Apps / Control Panel); the exe stays FastShare.exe.
 ; Installs per-user into %LOCALAPPDATA%\Programs\Fast Share - no admin prompt, and FastShare's

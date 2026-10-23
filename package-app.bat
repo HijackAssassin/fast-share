@@ -1,8 +1,8 @@
 @echo off
 rem ==========================================================================
-rem  Fast Share's downloads. Website\"archive this build.bat" calls:
+rem  Fast Share's downloads. Website\"2 archive this build.bat" calls:
 rem      Code\package-app.bat <version> "<project folder>"
-rem  and gets, in Website\, made from Website\FastShare\ (the copy Website\build.bat made from Build\):
+rem  and gets, in Website\, made from Website\FastShare\ (the copy Website\1 build.bat made from Build\):
 rem    Fast-Share-V<version>.rar         portable: FastShare.exe, the 5 native DLLs and GUIDE.md, flat
 rem                                      (WinRAR -ep1). Name AND inside layout must never change: every
 rem                                      FastShare out there updates itself by finding exactly this file
@@ -18,7 +18,7 @@ set "CODE=%ROOT%\Code"
 for /f "usebackq eol=# tokens=1,* delims==" %%a in ("%ROOT%\project.cfg") do set "%%a=%%b"
 set "PROGRAM=%EXE:~0,-4%"
 set "SRC=%WEB%\%PROGRAM%"
-if "%VERSION%"=="" echo Run "archive this build.bat" in Website\, not this. & exit /b 1
+if "%VERSION%"=="" echo Run "2 archive this build.bat" in Website\, not this. & exit /b 1
 
 set "RAR=%ProgramFiles%\WinRAR\Rar.exe"
 if not exist "%RAR%" echo WinRAR was not found: %RAR% & exit /b 1
