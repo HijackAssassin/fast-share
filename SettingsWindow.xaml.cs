@@ -30,6 +30,7 @@ public partial class SettingsWindow : Window
         PortBox.Text = config.Port.ToString();
         AutoExcludeBox.IsChecked = config.KeepDefenderExcluded;
         TrayBox.IsChecked = config.CloseToTray;
+        DiscordBox.IsChecked = config.DiscordPresence;
         DevBox.IsChecked = config.DevMode;
         SpeedUnitBox.SelectedIndex = config.SpeedUnit == "MB" ? 1 : 0;
         VerifyBox.IsChecked = config.CheckFiles;
@@ -178,6 +179,7 @@ public partial class SettingsWindow : Window
 
         _config.KeepDefenderExcluded = AutoExcludeBox.IsChecked == true;
         _config.CloseToTray = TrayBox.IsChecked == true;
+        _config.DiscordPresence = DiscordBox.IsChecked == true;
         _config.DevMode = DevBox.IsChecked == true;
         _config.SpeedUnit = (SpeedUnitBox.SelectedItem as System.Windows.Controls.ComboBoxItem)?.Tag as string ?? "Mbit";
         Format.Megabytes = _config.SpeedUnit == "MB";

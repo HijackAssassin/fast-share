@@ -271,6 +271,7 @@ names the fastest), over 1, upload over 8, and ping idle vs busy. It takes about
 | Check for updates | Updates from Patrick's PC, or the website when his update server is closed |
 | Keep shares excluded from Defender | Stops Windows Defender scanning every incoming file (much faster for thousands of small files). Windows asks you to confirm |
 | Closing the window keeps FastShare running | X hides to the tray instead of quitting. With it off, the tray icon only appears while a notification is showing |
+| Show Fast Share in my Discord status | On by default. While the Discord app is open, your status shows "Playing Fast Share" with Idle, Sharing folders, or Sending/Receiving files with the percent and speed. Never file names or who you are connected to |
 | Check files after every transfer | Both PCs compare every file after it moves (slower; on by default) |
 | Shut down this PC when all transfers finish | Only while something is transferring; unticks itself, then shuts down |
 | Speed shown in | Megabits per second (default, like internet plans) or megabytes per second (like file sizes) |

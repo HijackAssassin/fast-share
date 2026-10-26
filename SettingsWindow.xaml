@@ -109,6 +109,10 @@
                       Foreground="{DynamicResource Text}"/>
             <TextBlock Margin="24,2,0,0" TextWrapping="Wrap" FontSize="11" Foreground="{DynamicResource Subtle}"
                        Text="It keeps sharing and pops up when someone connects or sends files. Quit from the tray icon's menu. With this off, the icon only appears for a moment when there is a notification to show."/>
+            <CheckBox x:Name="DiscordBox" Content="Show Fast Share in my Discord status" Margin="0,10,0,0"
+                      Foreground="{DynamicResource Text}"/>
+            <TextBlock Margin="24,2,0,0" TextWrapping="Wrap" FontSize="11" Foreground="{DynamicResource Subtle}"
+                       Text="While Discord is open: idle, sharing, or sending/receiving with the percent and speed. Never file names or who you are connected to."/>
 
             <TextBlock Text="Troubleshooting" FontWeight="SemiBold" Margin="0,20,0,6"/>
             <CheckBox x:Name="DevBox" Content="Dev mode — exchange diagnostic logs with connected PCs"

@@ -938,6 +938,7 @@ public partial class MainWindow
         UpdateLifetime();
         CheckShutdownWhenDone();
         SavePendingProgress();
+        UpdateDiscordPresence();
     }
 
     // =======================================================================
@@ -1416,6 +1417,7 @@ public partial class MainWindow
         if (saved) StartDevMode();
         if (saved) RefreshBlocked();
         if (saved) UpdateTrayIcon();
+        if (saved) DiscordPresence.SetEnabled(_config.DiscordPresence);
 
         // Anyone blocked while connected loses their session immediately.
         if (saved) foreach (var peer in _config.Blocked) _server.Sessions.Revoke(peer.PeerId, DenyReasons.Blocked);

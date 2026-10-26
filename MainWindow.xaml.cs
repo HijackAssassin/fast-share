@@ -315,6 +315,8 @@ public partial class MainWindow : Window
         _uiTimer.Tick += OnUiTick;
         _uiTimer.Start();
 
+        DiscordPresence.SetEnabled(_config.DiscordPresence);
+
         Loaded += async (_, _) =>
         {
             await RefreshStatusesAsync();
@@ -643,6 +645,7 @@ public partial class MainWindow : Window
 
         _tray?.Dispose();
         _tray = null;
+        DiscordPresence.SetEnabled(false);
         _shutdownDone = true;
         Close();
     }

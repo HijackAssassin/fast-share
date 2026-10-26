@@ -209,6 +209,12 @@ public sealed class AppConfig
     public bool CloseToTray { get; set; }
 
     /// <summary>
+    /// Show "Playing Fast Share" on Discord while the Discord app is running: idle, sharing, or
+    /// sending/receiving with the percent and speed - never file or people's names. On by default.
+    /// </summary>
+    public bool DiscordPresence { get; set; } = true;
+
+    /// <summary>
     /// Dev mode: send this PC's log and live stats to the hosts it connects to, and keep what
     /// connected peers send (diag\&lt;peer&gt;.log). Both ends need it on. Off by default.
     /// </summary>
